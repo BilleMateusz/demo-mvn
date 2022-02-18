@@ -3,6 +3,7 @@ package com.example.demo.mvn;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.*;
@@ -15,12 +16,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
+@RequiredArgsConstructor
 @Slf4j
 @RestController
 public class TestController {
 
     private RestTemplate restTemplate = new RestTemplate();;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final TimeService timeService;
 
     @GetMapping
     public String test() throws IOException, URISyntaxException, InterruptedException {
@@ -59,5 +62,9 @@ public class TestController {
         ResponseEntity<String> response = restTemplate.postForEntity(uiUriToken, request , String.class );
         JsonNode root = objectMapper.readTree(response.getBody());
         return root.get("access_token").textValue();
+    }
+
+    private ResponseEntity<String> startLaunch() {
+        return null; //TODO implement
     }
 }

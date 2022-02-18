@@ -40,6 +40,11 @@ class RandomTest extends Specification {
             1 == 1
     }
 
+    def "should fail"() {
+        expect:
+            1 == 0
+    }
+
     @Unroll('#word of length #length')
     def "should have given length"() {
         given:

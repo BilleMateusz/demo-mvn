@@ -17,9 +17,27 @@ class RandomSpec extends Specification {
             drawn == 1
     }
 
+    def "should randomly draw more than 0.5 spec"() {
+        when:
+            def drawn = random.nextFloat()
+            logger.info("randomly drew $drawn")
+        then:
+            drawn > 0.5
+    }
+
     def "should always be true spec"() {
         expect:
             1 == 1
+    }
+
+    def "should fail"() {
+        expect:
+            1 == 0
+    }
+
+    def "should fail at boolean value evaluation "() {
+        expect:
+            false
     }
 
     @Unroll('#word of length #length')
